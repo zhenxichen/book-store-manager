@@ -19,5 +19,6 @@ from depot import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('purchase/', views.purchase)
+    path('purchase/', views.purchase),
+    path('depot/', views.depot)
 ]

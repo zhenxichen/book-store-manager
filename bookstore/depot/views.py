@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from depot import models
+import json
 
 # Create your views here.
 
@@ -24,6 +25,27 @@ def purchase(request):
 		newNum = number_before + int(number)
 		lines.update(number= newNum)
 	return HttpResponse("success")
+
+def depot(request):
+	# 实现查看库存功能
+	books = models.Book.objects.all()
+	bookList = []
+	for line in books:
+		bookInfo = { }
+		bookInfo['ISBN'] = line.isbn
+		bookInfo['title'] = line.title
+		bookInfo['author'] = line.author
+		bookInfo['type'] = line.type
+		bookInfo['number'] = line.number
+		bookInfo['price'] = line.price
+		bookList.append(bookInfo)
+	depotInfo = {
+		'bookList': bookList
+	}
+	depotStr = str(depotInfo)
+	return HttpResponse(depotStr)
+	
+
 
 
 
