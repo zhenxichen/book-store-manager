@@ -59,7 +59,7 @@ class Rent(models.Model):
     isbn = models.CharField(db_column='ISBN', max_length=20)  # Field name made lowercase.
     rent_time = models.DateTimeField()
     return_date = models.DateField(db_column='Return_date', blank=True, null=True)  # Field name made lowercase.
-    due_date = models.DateTimeField()
+    due_date = models.DateField()
     cid = models.IntegerField()
 
     class Meta:

@@ -70,6 +70,21 @@
   + 方法: POST (FormData)
   + 数据: username, password
   + 可能返回值: {username, name} "Username Not Exist" "Wrong Password."
+8. **recordrent**
+  + 记录书籍出借
+  + 方法: POST (FormData)
+  + 数据: OperatorID, CustomerID, ISBN
+  + 可能返回值: "success" "Customer Not Found."
+9. **recordret**
+  + 记录书籍退还
+  + 方法: POST (FormData)
+  + 数据: OperatorID, OrderID
+  + 可能返回值: "success" "OrderID Not Found."
+10. **queryrent**
+  + 查询书籍出借信息
+  + 方法: GET
+  + 可能返回值: {'rentList': rentList} 包含订单号, 顾客id, <br>
+  操作员, 出借时间, 应还时间, 归还时间(未还为None)
 
 
 

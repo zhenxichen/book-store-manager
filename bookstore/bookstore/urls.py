@@ -22,5 +22,11 @@ urlpatterns = [
     path('purchase/', views.purchase),
     path('depot/', views.depot),
     path('recordsell/', views.recordsell),
-    path('newCustomer/', views.newCustomer)
+    path('newCustomer/', views.newCustomer),
+    path('signup/', views.signup),
+    path('login/', views.login),
+    path('querysell/', views.querysell),
+    path('recordrent/', views.recordrent),
+    path('recordret/', views.recordret),
+    path('queryrent/', views.queryrent),
 ]
