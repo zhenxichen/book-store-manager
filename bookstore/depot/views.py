@@ -94,7 +94,7 @@ def recordsell(request):
 		operatorid=oid, time=currTime)
 	models.Order.objects.create(orderid=orderid, operatorid= oid, amount=amount, \
 	cid=cid, time=currTime)
-	return HttpResponse("Finish.")
+	return HttpResponse("Finish")
 
 def newCustomer(request):
 	#顾客注册

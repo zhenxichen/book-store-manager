@@ -39,7 +39,37 @@
   + time: 出售时间
 
 ## 服务端API
-1. Purchase<br>
+1. **purchase**
+  + 实现进货功能(即库存补充以及新增商品)
+  + 方法: POST (FormData)
+  + 数据: ISBN, title, author, number, price, type
+2. **depot**
+  + 实现查看库存功能
+  + 方法: GET
+3. **querysell**
+  + 查询零售订单记录
+  + 方法: GET
+  + 返回值: [{OrderID, CustomerID, CustomerName, time, operator, amount}]
+4. **recordsell**
+  + 记录零售数据
+  + 方法: POST (FormData)
+  + 数据: CustomerID, OperatorID, isbn[], amount
+  + 可能返回值: "Finish"
+5. **newCustomer**
+  + 新用户注册
+  + 方法: POST (FormData)
+  + 数据: CustomerID, name, address
+  + 可能返回值: "success" "ID existed"
+6. **signup**
+  + 操作员注册账号
+  + 方法: POST (FormData)
+  + 数据: username, password, name
+  + 可能返回值: "success" "Username existed"
+7. **login**
+  + 操作员账号登录
+  + 方法: POST (FormData)
+  + 数据: username, password
+  + 可能返回值: {username, name} "Username Not Exist" "Wrong Password."
 
 
 
