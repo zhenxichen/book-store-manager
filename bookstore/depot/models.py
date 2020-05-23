@@ -27,7 +27,7 @@ class Customer(models.Model):
     address = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'customer'
 
 
@@ -37,8 +37,20 @@ class Operator(models.Model):
     name = models.CharField(max_length=10)
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'operator'
+
+
+class Order(models.Model):
+    orderid = models.CharField(db_column='OrderID', primary_key=True, max_length=20)  # Field name made lowercase.
+    operatorid = models.CharField(db_column='OperatorID', max_length=12)  # Field name made lowercase.
+    amount = models.FloatField()
+    cid = models.IntegerField()
+    time = models.DateTimeField()
+
+    class Meta:
+        managed = True
+        db_table = 'order'
 
 
 class Rent(models.Model):
@@ -51,17 +63,18 @@ class Rent(models.Model):
     cid = models.IntegerField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'rent'
 
 
 class Sell(models.Model):
-    orderid = models.CharField(db_column='OrderID', primary_key=True, max_length=20)  # Field name made lowercase.
-    operatorid = models.CharField(db_column='OperatorID', max_length=12)  # Field name made lowercase.
-    amount = models.FloatField()
+    key = models.AutoField(primary_key=True)
+    isbn = models.CharField(db_column='ISBN', max_length=20)  # Field name made lowercase.
     cid = models.IntegerField()
+    orderid = models.CharField(db_column='OrderID', max_length=20)  # Field name made lowercase.
+    operatorid = models.CharField(db_column='OperatorID', max_length=12)  # Field name made lowercase.
     time = models.DateTimeField()
 
     class Meta:
-        managed = False
+        managed = True
         db_table = 'sell'
