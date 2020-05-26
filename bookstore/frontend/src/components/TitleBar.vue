@@ -1,7 +1,6 @@
 <template>
   <div class="titlebar">
     <div class="title">书店书刊出租和零售管理系统</div>
-    <div class="username">username</div>
   </div>
 </template>
 

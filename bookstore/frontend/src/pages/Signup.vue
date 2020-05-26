@@ -3,8 +3,8 @@
     <div class="bg">
       <img src="@/assets/loginback.png" />
     </div>
-    <div class="loginWin">
-      <div class="title">登录</div>
+    <div class="signupWin">
+      <div class="title">注册</div>
       <form @submit.prevent="submit">
         <div class="bar">
           <div class="icon"><img src="@/assets/md-person.svg" /></div>
@@ -12,15 +12,18 @@
         </div>
         <div class="bar">
           <div class="icon"><img src="@/assets/md-https.svg" /></div>
-          <input type="password" placeholder="请输入密码" 
-          v-model="user.password"/>
+          <input type="password" placeholder="请输入密码" v-model="user.password"/>
         </div>
-        <input type="submit" value="登录" class="submit" />
+        <div class="bar">
+          <div class="icon"><img src="@/assets/md-person.svg" /></div>
+          <input type="text" placeholder="请输入姓名" v-model="user.name"/>
+        </div>
+        <input type="submit" value="注册" class="submit" />
       </form>
       <div class="down">
         <div class="caption">{{caption}}</div>
-        <div class="signup">
-          <router-link to="/signup">注册></router-link>
+        <div class="login">
+          <router-link to="/login">登录></router-link>
         </div>
       </div>
     </div>
@@ -31,12 +34,13 @@
 import axios from 'axios'
 
 export default {
-  name: 'Login',
+  name: 'Signup',
   data() {
     return {
-      user:{
+      user: {
         username: '',
         password: '',
+        name: ''
       },
       caption: ''
     }
@@ -46,24 +50,16 @@ export default {
       let formData = new FormData();
       formData.append('username', this.user.username);
       formData.append('password', this.user.password);
-      axios.post(
-        '/api/login/',
-        formData
-      )
+      formData.append('name', this.user.name);
+      axios.post('/api/signup/', formData)
       .then((res) => {
-        if(res.data === "Username Not Exist"){
-          this.caption = '用户名错误';
-          this.$forceUpdate();
-        }
-        else if(res.data === "Wrong Password."){
-          this.caption = '密码错误';
+        if(res.data === "Username existed"){
+          this.caption = '用户名已存在';
           this.$forceUpdate();
         }
         else{
-          console.log(res);
-          this.$global.setUsername(res.username);
           this.$router.push({
-            name: 'HelloWorld'
+            name: 'Login'
           });
         }
       })
@@ -76,7 +72,7 @@ export default {
 </script>
 
 <style scoped>
-  
+
 .main{
   width: 100%;
   height: 100%;
@@ -97,7 +93,7 @@ export default {
   height: 470px;
 }
 
-.loginWin{
+.signupWin{
   position: absolute;
   left: 854px;
   top: 50%;
@@ -112,7 +108,7 @@ export default {
   transform: translateY(-50%);
 }
 
-.loginWin .title{
+.signupWin .title{
   margin-top: 44px;
   margin-left: 42px;
   width: 96px;
@@ -192,13 +188,13 @@ export default {
   padding-left: 50px;
 }
 
-.signup{
+.login{
   width: 55px;
   height: 27px;
   text-align: center;
 }
 
-.signup router-link {
+.login router-link {
   width: 55px;
   height: 27px;
   text-align: center;

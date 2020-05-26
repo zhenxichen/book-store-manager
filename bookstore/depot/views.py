@@ -188,9 +188,9 @@ def queryrent(request):
 		rentInfo['CustomerID'] = cid
 		customer = models.Customer.objects.filter(cid= cid)
 		rentInfo['CustomerName'] = customer[0].name
-		rentInfo['rent_time'] = line.rent_time
-		rentInfo['due_date'] = line.due_date
-		rentInfo['return_date'] = line.return_date	#这个地方返回值是None 不知道js能不能理解过来
+		rentInfo['rent_time'] = str(line.rent_time)
+		rentInfo['due_date'] = str(line.due_date)
+		rentInfo['return_date'] = str(line.return_date)	#这个地方返回值是None 不知道js能不能理解过来
 		oid = line.operatorid
 		operator = models.Operator.objects.filter(username= oid)
 		rentInfo['operator'] = operator[0].name
