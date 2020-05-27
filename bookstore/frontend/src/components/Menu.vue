@@ -13,6 +13,9 @@
     <div class="item" id="querysell" v-on:click="querysell">
       零售查询
     </div>
+    <div class="item" id="recordsell" v-on:click="recordsell">
+      记录零售
+    </div>
     <div class="segment"></div>
   </div>
 </template>
@@ -109,6 +112,11 @@ export default {
     querysell() {
       this.$router.push({
         name: 'Querysell'
+      });
+    },
+    recordsell() {
+      this.$router.push({
+        name: 'Recordsell'
       });
     },
   },

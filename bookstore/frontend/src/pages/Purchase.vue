@@ -39,7 +39,7 @@
           <a-button type="primary" @click="onSubmit">
             录入
           </a-button>
-          <a-button style="margin-left: 30px;">
+          <a-button style="margin-left: 30px;" @click="onCancel">
             取消
           </a-button>
         </a-form-model-item>
@@ -125,6 +125,11 @@ export default {
             name: 'Depot'
           });
         });
+    },
+    onCancel() {
+      this.$router.push({
+        name: 'Depot'
+      });
     }
   },
   created: function(){

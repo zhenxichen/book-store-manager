@@ -60,8 +60,10 @@ export default {
           this.$forceUpdate();
         }
         else{
-          console.log(res);
-          this.$global.setUsername(res.username);
+          //console.log(res);
+          const resJson = JSON.parse(res.data.replace(/'/g, '"'));
+          this.$global.setUsername(resJson.username);
+          console.log(this.$global.username);
           this.$router.push({
             name: 'Depot'
           });

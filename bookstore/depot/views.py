@@ -50,7 +50,7 @@ def depot(request):
 
 def querysell(request):
 	# 查询零售订单记录
-	# 需要返回订单号, 客户姓名, 客户id, 订单时间, 操作员姓名, 金额
+	# 需要返回订单号, 客户姓名, 客户id, 订单时间, 操作员, 金额
 	sells = models.Order.objects.all()
 	sellList = []
 	for line in sells:
@@ -62,8 +62,7 @@ def querysell(request):
 		sellInfo['CustomerName'] = customer[0].name
 		sellInfo['time'] = str(line.time)
 		oid = line.operatorid
-		operator = models.Operator.objects.filter(username= oid)
-		sellInfo['operator'] = operator[0].name
+		sellInfo['operator'] = oid
 		sellInfo['amount'] = line.amount
 		sellList.append(sellInfo)
 	info = {
