@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <TitleBar></TitleBar>
+    <Menu></Menu>
     <h1>{{ msg }}</h1>
     <h2>Essential Links</h2>
     <ul>
@@ -86,6 +87,7 @@
 
 <script>
 import TitleBar from './TitleBar'
+import Menu from './Menu'
 export default {
   name: 'HelloWorld',
   data () {
@@ -94,7 +96,8 @@ export default {
     }
   },
   components:{
-    TitleBar
+    TitleBar,
+    Menu
   }
 }
 </script>

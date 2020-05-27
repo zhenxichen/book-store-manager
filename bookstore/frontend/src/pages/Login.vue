@@ -63,7 +63,7 @@ export default {
           console.log(res);
           this.$global.setUsername(res.username);
           this.$router.push({
-            name: 'HelloWorld'
+            name: 'Depot'
           });
         }
       })

@@ -7,8 +7,6 @@
 <style scoped>
 
 .titlebar{
-  left: 0px;
-  top: 0px;
   width: 100%;
   height: 65px;
   line-height: 26px;
@@ -17,30 +15,18 @@
   font-size: 18px;
   text-align: left;
   font-family: Arial, Helvetica, sans-serif;
-  border: 1px solid rgba(255, 255, 255, 0);
-  position: absolute;
+  border: none;
+  position: fixed;
+  display: flex;
 }
 
 .title{
-  position: absolute;
-  top: 50%;
-  left: 24px;
+  height: 65px;
+  margin-top: 50px;
+  margin-left: 24px;
   color: rgba(255, 255, 255, 1);
   font-weight: 700;
   transform: translateY(-50%);
-}
-
-.username{
-  top: 45%;
-  left: 95%;
-  width: 42px;
-  height: 17px;
-  color: rgba(255, 255, 255, 1);
-  font-size: 14px;
-  text-align: left;
-  font-family: Arial, Helvetica, sans-serif;
-  position: absolute;
-  transform: translateY(-50%)
 }
 
 </style>

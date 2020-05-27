@@ -4,9 +4,13 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import Global from './components/Global'
+import Antd from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css'
 
 Vue.config.productionTip = false
 Vue.prototype.$global = Global
+
+Vue.use(Antd)
 
 /* eslint-disable no-new */
 new Vue({
