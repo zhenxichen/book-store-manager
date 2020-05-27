@@ -10,6 +10,9 @@
     <div class="item" id="purchase" v-on:click="purchase">
       添加库存
     </div>
+    <div class="item" id="querysell" v-on:click="querysell">
+      零售查询
+    </div>
     <div class="segment"></div>
   </div>
 </template>
@@ -102,7 +105,12 @@ export default {
       this.$router.push({
         name: 'Purchase'
       });
-    }
+    },
+    querysell() {
+      this.$router.push({
+        name: 'Querysell'
+      });
+    },
   },
   created: function(){
     

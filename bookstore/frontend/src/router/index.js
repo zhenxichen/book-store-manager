@@ -5,6 +5,7 @@ import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import Depot from '@/pages/Depot'
 import Purchase from '@/pages/Purchase'
+import Querysell from '@/pages/Querysell'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/purchase',
       name: 'Purchase',
       component: Purchase
+    },
+    {
+      path: '/querysell',
+      name: 'Querysell',
+      component: Querysell
     }
   ]
 })

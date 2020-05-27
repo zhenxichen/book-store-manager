@@ -60,7 +60,7 @@ def querysell(request):
 		sellInfo['CustomerID'] = cid
 		customer = models.Customer.objects.filter(cid= cid)
 		sellInfo['CustomerName'] = customer[0].name
-		sellInfo['time'] = line.time
+		sellInfo['time'] = str(line.time)
 		oid = line.operatorid
 		operator = models.Operator.objects.filter(username= oid)
 		sellInfo['operator'] = operator[0].name
