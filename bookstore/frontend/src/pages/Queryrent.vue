@@ -6,6 +6,12 @@
       <div class="title">
         <div class="title-text">记录零售</div>
       </div>
+      <a-input-search
+        placeholder="可根据顾客姓名进行查询（搜索框为空则显示全部）"
+        enter-button
+        @search="onSearch"
+        style="width: 100%;"
+      />
       <a-table :columns="columns" :data-source="data"></a-table>
     </div>
   </div>
@@ -54,7 +60,8 @@ export default {
   data() {
     return {
       data: [],
-      columns
+      columns,
+      data_bak: []
     }
   },
   components: {
@@ -79,10 +86,31 @@ export default {
             }
           }
           this.data = rentList;
+          this.data_bak = rentList;
+          console.log(rentList);
         })
         .catch((err) => {
           console.log(err);
         });
+    }
+  },
+  methods: {
+    onSearch(value) {
+      const totalData = this.data_bak;
+      console.log(this.data_bak);
+      let tableData = [];
+      if(value === ''){ 
+        this.data = totalData;
+        console.log(this.data);
+      }
+      else{
+        for(let i = 0; i < totalData.length; i++){
+          if(totalData[i].CustomerName === value){
+            tableData.push(totalData[i]);
+          }
+        }
+        this.data = tableData;
+      }
     }
   }
 }
