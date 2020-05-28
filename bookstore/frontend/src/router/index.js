@@ -1,12 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import Login from '@/pages/Login'
 import Signup from '@/pages/Signup'
 import Depot from '@/pages/Depot'
 import Purchase from '@/pages/Purchase'
 import Querysell from '@/pages/Querysell'
 import Recordsell from '@/pages/Recordsell'
+import Queryrent from '@/pages/Queryrent'
+import Recordrent from '@/pages/Recordrent'
+import Recordret from '@/pages/Recordret'
+import Newcust from '@/pages/Newcust'
 
 Vue.use(Router)
 
@@ -45,6 +48,26 @@ export default new Router({
       path: '/recordsell',
       name: 'Recordsell',
       component: Recordsell
+    },
+    {
+      path: '/queryrent',
+      name: 'Queryrent',
+      component: Queryrent
+    },
+    {
+      path: '/recordrent',
+      name: 'Recordrent',
+      component: Recordrent
+    },
+    {
+      path: '/recordret',
+      name: 'Recordret',
+      component: Recordret
+    },
+    {
+      path: '/newcust',
+      name: 'Newcust',
+      component: Newcust
     },
   ]
 })

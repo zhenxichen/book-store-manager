@@ -4,20 +4,16 @@
     <Menu></Menu>
     <div class="page">
       <div class="title">
-        <div class="title-text">记录零售</div>
+        <div class="title-text">记录借出</div>
       </div>
-      <a-form-model :model= "form" :rules="rules" ref="ruleForm">
+      <a-form-model :model="form" :rules="rules">
         <a-form-model-item label="顾客ID" prop="CustomerID">
           <a-input placeholder="请输入顾客ID" 
-          v-model="form.CustomerID"></a-input>
+          v-model="form.CustomerID" />
         </a-form-model-item>
         <a-form-model-item label="ISBN" prop="ISBN">
-          <a-input placeholder="请输入ISBN号，多本书以英文','分隔" 
-            type="textarea" v-model="form.ISBN"
-          />
-        </a-form-model-item>
-        <a-form-model-item label="金额" prop="price">
-          <a-input placeholder="请输入本单金额" v-model="form.price" />
+          <a-input placeholder="请输入书籍ISBN" 
+          v-model="form.ISBN" />
         </a-form-model-item>
         <a-form-model-item>
           <a-button type="primary" @click="onSubmit">
@@ -39,50 +35,46 @@ import Menu from "@/components/Menu";
 import axios from "axios";
 
 export default {
-  name: 'Recordsell',
+  name: 'Recordrent',
   data() {
     return {
       form: {
         CustomerID: undefined,
-        ISBN: '',
-        price: ''
+        ISBN: ''
       },
       rules: {
-        CustomerID: [],
+        CustomerID: [
+          { required: true, message: '请输入顾客ID' }
+        ],
         ISBN: [{required: true, message: '请输入ISBN号'}],
-        price: [{required: true, message: '请输入金额'}]
       },
       caption: ''
-    };
+    }
+  },
+  created: function(){
+    if(this.$global.username === ''){
+      this.$router.push({
+        name: 'Login'
+      });
+    }
   },
   methods: {
     onSubmit() {
-      let formData = new FormData();
       if(this.form.CustomerID === undefined){
-        formData.append('CustomerID', 0);
-      }
-      else{
-        formData.append('CustomerID', this.form.CustomerID);
+        return;
       }
       if(this.form.ISBN === ''){
         return;
       }
-      const isbn = this.form.ISBN;
-      const isbnList = isbn.split(',');
-      for (let i = 0; i < isbnList.length; i++) {
-        formData.append('isbn[]', isbnList[i]);
-      }
-      if(this.form.price === undefined){
-        return;
-      }
-      formData.append('amount', this.form.price);
+      let formData = new FormData();
+      formData.append('CustomerID', this.form.CustomerID);
+      formData.append('ISBN', this.form.ISBN);
       formData.append('OperatorID', this.$global.username);
-      console.log(this.$global.username);
       axios
-        .post('/api/recordsell/', formData)
+        .post('/api/recordrent/', formData)
         .then((res) => {
           if(res.data === "Wrong ISBN"){
-            this.caption = '存在错误的ISBN号码';
+            this.caption = 'ISBN错误，请重新输入';
             this.$forceUpdate();
           }
           else if(res.data === "Customer Not Found."){
@@ -90,33 +82,24 @@ export default {
             this.$forceUpdate();
           }
           else{
-            console.log(res.data);
             this.$router.push({
-              name: 'Querysell'
+              name: 'Queryrent'
             });
           }
         })
         .catch((err) => {
           console.log(err);
-        });
+        })
     },
     onCancel() {
       this.$router.push({
         name: 'Queryrent'
       });
-    },
+    }
   },
   components: {
     TitleBar,
     Menu
-  },
-  created: function() {
-    console.log(this.$global.username);
-    if(this.$global.username === ''){
-      this.$router.push({
-        name: 'Login'
-      });
-    }
   }
 }
 </script>

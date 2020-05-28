@@ -16,6 +16,18 @@
     <div class="item" id="recordsell" v-on:click="recordsell">
       记录零售
     </div>
+    <div class="item" id="queryrent" v-on:click="queryrent">
+      借阅查询
+    </div>
+    <div class="item" id="recordrent" v-on:click="recordrent">
+      记录借出
+    </div>
+    <div class="item" id="recordret" v-on:click="recordret">
+      记录归还
+    </div>
+    <div class="item" id="newcust" v-on:click="newcust">
+      顾客注册
+    </div>
     <div class="segment"></div>
   </div>
 </template>
@@ -117,6 +129,26 @@ export default {
     recordsell() {
       this.$router.push({
         name: 'Recordsell'
+      });
+    },
+    queryrent() {
+      this.$router.push({
+        name: 'Queryrent'
+      });
+    },
+    recordrent() {
+      this.$router.push({
+        name: 'Recordrent'
+      });
+    },
+    recordret() {
+      this.$router.push({
+        name: 'Recordret'
+      });
+    },
+    newcust() {
+      this.$router.push({
+        name: 'Newcust'
       });
     },
   },

@@ -159,8 +159,13 @@ def recordrent(request):
 	cid = request.POST.get('CustomerID')
 	customer = models.Customer.objects.filter(cid= cid)
 	isbn = request.POST.get('ISBN')
+	book = models.Book.objects.filter(isbn= isbn)
+	if len(book) == 0:
+		return HttpResponse("Wrong ISBN")
 	if len(customer) == 0:
-		return HttpResponse("Customer Not Found.")
+		return HttpResponse("Customer Not Found.")	
+	number = book[0].number
+	book.update(number= number-1)
 	models.Rent.objects.create(orderid=orderid, rent_time=now, \
 	isbn=isbn, operatorid=oid, due_date=due_date,cid=cid)
 	return HttpResponse("success")
@@ -172,6 +177,10 @@ def recordret(request):
 	orders = models.Rent.objects.filter(orderid= orderid)
 	if len(orders) == 0:
 		return HttpResponse("OrderID Not Found.")
+	isbn = orders[0].isbn
+	book = models.Book.objects.filter(isbn= isbn)
+	number = book[0].number
+	book.update(number= number+1)
 	today = datetime.date.today()
 	orders.update(return_date= today)
 	return HttpResponse("success")
