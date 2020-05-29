@@ -208,6 +208,42 @@ def queryrent(request):
 	}
 	return HttpResponse(str(retInfo))
 
+def querybook(request):
+	#查询书籍在一定时间段内的销售和借出情况
+	date_begin = request.POST.get('begin')
+	date_end = request.POST.get('end')
+	ISBN = request.POST.get('ISBN')
+	#print(ISBN)
+	book = models.Book.objects.filter(isbn= ISBN)
+	if len(book) == 0:
+		return HttpResponse("ISBN Error")
+	title = book[0].title
+	author = book[0].author
+	price = book[0].price
+	if date_begin == "" or date_end == "":
+		sells = models.Sell.objects.filter(isbn= ISBN)
+		rents = models.Rent.objects.filter(isbn= ISBN)
+	else:
+		begin = datetime.datetime.strptime(date_begin, '%Y-%m-%d')
+		end = datetime.datetime.strptime(date_end, '%Y-%m-%d') + \
+		datetime.timedelta(days= 1)
+		sells = models.Sell.objects.filter(isbn= ISBN, time__range=(begin, end))
+		rents = models.Rent.objects.filter(isbn= ISBN, rent_time__range=(begin, end))
+	sellNum = len(sells)
+	rentNum = len(rents)
+	retInfo = {
+		'ISBN': ISBN,
+		'title': title,
+		'author': author,
+		'sell': sellNum,
+		'rent': rentNum
+	}
+	return HttpResponse(str(retInfo))
+
+
+	
+
+
 
 
 

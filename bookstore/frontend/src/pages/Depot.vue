@@ -6,7 +6,24 @@
       <div class="title">
         <div class="title-text">查看库存</div>
       </div>
-      <a-table :columns="columns" :data-source="data"></a-table>
+      <a-table 
+        :columns="columns" 
+        :data-source="data" 
+      />
+      <a-modal
+        :visible="visible"
+        @ok="handleOk"
+        @cancel="handleCancel"
+      >
+        <a-range-picker @change="onChange" />
+        <div class="show">
+          <p>ISBN：{{modal.ISBN}}</p>
+          <p>书名：{{modal.title}}</p>
+          <p>作者：{{modal.author}}</p>
+          <p>销量：{{modal.sells}}</p>
+          <p>借出：{{modal.rents}}</p>
+        </div>
+      </a-modal>
     </div>
   </div>
 </template>
@@ -16,47 +33,73 @@ import TitleBar from "@/components/TitleBar";
 import Menu from "@/components/Menu";
 import axios from "axios";
 
-const columns = [
-  {
-    dataIndex: "ISBN",
-    key: "ISBN",
-    title: "ISBN"
-  },
-  {
-    dataIndex: "title",
-    key: "title",
-    title: "书刊名称"
-  },
-  {
-    dataIndex: "author",
-    key: "author",
-    title: "作者"
-  },
-  {
-    dataIndex: "Type",
-    key: "Type",
-    title: "类别"
-  },
-  {
-    dataIndex: "price",
-    key: "price",
-    title: "售价"
-  },
-  {
-    dataIndex: "number",
-    key: "number",
-    title: "库存"
-  }
-];
 
 const data = [];
 
 export default {
   name: "Depot",
   data() {
+    const that = this;
+    const columns = [
+      {
+        dataIndex: "ISBN",
+        key: "ISBN",
+        title: "ISBN",
+        customRender: (text, row, index) => {
+          const children = that.$createElement("a", {
+            domProps: {
+              innerHTML: text
+            },
+            on: {
+              click: function(){
+                that.click(text);
+              }
+            }
+          });
+          const obj = {
+            children: children,
+            attrs: {}
+          };
+          return obj;
+        }
+      },
+      {
+        dataIndex: "title",
+        key: "title",
+        title: "书刊名称"
+      },
+      {
+        dataIndex: "author",
+        key: "author",
+        title: "作者"
+      },
+      {
+        dataIndex: "Type",
+        key: "Type",
+        title: "类别"
+      },
+      {
+        dataIndex: "price",
+        key: "price",
+        title: "售价"
+      },
+      {
+        dataIndex: "number",
+        key: "number",
+        title: "库存"
+      }
+    ];
     return {
       data: [],
-      columns
+      columns,
+      visible: false,
+      modal: {
+        ISBN: '',
+        title: '',
+        author: '',
+        sells: undefined,
+        rents: undefined,
+      },
     };
   },
   components: {
@@ -95,6 +138,59 @@ export default {
           console.log(err);
         });
     }
+  },
+  methods: {
+    click: function(text){
+      const ISBN = text;
+      let formData = new FormData();
+      formData.append('ISBN', ISBN);
+      formData.append('begin', '');
+      formData.append('end', '');
+      axios
+        .post('/api/querybook/', formData)
+        .then((res) => {
+          if(res.data === "ISBN Error"){
+            return;
+          }
+          const resJson = JSON.parse(res.data.replace(/'/g, '"'));
+          this.modal.ISBN = resJson.ISBN;
+          this.modal.title = resJson.title;
+          this.modal.author = resJson.author;
+          this.modal.sells = resJson.sell;
+          this.modal.rents = resJson.rent;
+          this.visible = true;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    handleOk() {
+      this.visible = false;
+    },
+    handleCancel() {
+      this.visible = false;
+    },
+    onChange(date, dateString){
+      console.log(dateString);
+      const ISBN = this.modal.ISBN;
+      let formData = new FormData();
+      formData.append('ISBN', ISBN);
+      formData.append('begin', dateString[0]);
+      formData.append('end', dateString[1]);
+      axios
+        .post('/api/querybook/', formData)
+        .then((res) => {
+          if(res.data === "ISBN Error"){
+            return;
+          }
+          const resJson = JSON.parse(res.data.replace(/'/g, '"'));
+          this.modal.sells = resJson.sell;
+          this.modal.rents = resJson.rent;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }
 };
 </script>
@@ -124,5 +220,9 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   padding-left: 26px;
   padding-top: 12px;
+}
+
+.show {
+  margin-top: 20px;
 }
 </style>

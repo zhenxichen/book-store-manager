@@ -29,4 +29,5 @@ urlpatterns = [
     path('recordrent/', views.recordrent),
     path('recordret/', views.recordret),
     path('queryrent/', views.queryrent),
+    path('querybook/', views.querybook)
 ]

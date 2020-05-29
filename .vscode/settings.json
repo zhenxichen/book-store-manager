@@ -1,0 +1,16 @@
+{
+  "editor.formatOnSave": true,
+  "editor.detectIndentation": true,
+  "[html]": {
+    "editor.tabSize": 2
+  },
+  "[css]": {
+    "editor.tabSize": 2
+  },
+  "[vue]": {
+    "editor.tabSize": 2
+  },
+  "[python]": {
+    "editor.tabSize": 4
+  }
+}
