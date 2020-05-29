@@ -18,16 +18,16 @@ from django.urls import path
 from depot import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('purchase/', views.purchase),
-    path('depot/', views.depot),
-    path('recordsell/', views.recordsell),
-    path('newCustomer/', views.newCustomer),
-    path('signup/', views.signup),
-    path('login/', views.login),
-    path('querysell/', views.querysell),
-    path('recordrent/', views.recordrent),
-    path('recordret/', views.recordret),
-    path('queryrent/', views.queryrent),
-    path('querybook/', views.querybook)
+    path('api/admin/', admin.site.urls),
+    path('api/purchase/', views.purchase),
+    path('api/depot/', views.depot),
+    path('api/recordsell/', views.recordsell),
+    path('api/newCustomer/', views.newCustomer),
+    path('api/signup/', views.signup),
+    path('api/login/', views.login),
+    path('api/querysell/', views.querysell),
+    path('api/recordrent/', views.recordrent),
+    path('api/recordret/', views.recordret),
+    path('api/queryrent/', views.queryrent),
+    path('api/querybook/', views.querybook)
 ]
