@@ -86,7 +86,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bookstore',
         'USER': 'root',
-        'PASSWORD': 'czx15980662613',
+        'PASSWORD': 'XXXXXXXXXXX',      # your database password
         'HOST': 'cdb-csf20mte.cd.tencentcdb.com',
         'PORT': '10099'
     }
